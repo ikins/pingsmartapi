@@ -1,0 +1,2 @@
+# pingsmartapi
+API Pingsmart
