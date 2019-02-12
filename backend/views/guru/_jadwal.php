@@ -44,7 +44,7 @@ $dataProvider = $searchModel->searchbyGuru(Yii::$app->request->queryParams);
 			'format' => 'raw',
 			'vAlign' => 'middle',
 			'value' => function ($model, $key, $index) {
-				return Html::a('Kelas '.$model->KodeKelas, ['/guru/siswa', 'id' => $model->kelas->Id]);
+				return Html::a('Kelas '.$model->KodeKelas, ['/kelas/view', 'id' => $model->kelas->Id]);
 			}, 
 		],
 		

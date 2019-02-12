@@ -7,6 +7,7 @@ use common\models\Jabatan;
 use common\models\Provinsi;
 use common\models\Kabupaten;
 use common\models\Agama;
+use common\models\GolonganDarah;
 use yii\helpers\Url;
 use kartik\file\FileInput;
 use kartik\datecontrol\DateControl;
@@ -219,6 +220,15 @@ use kartik\datecontrol\DateControl;
 							<?= $form->field($data, 'IdAgm')->dropDownList(ArrayHelper::map(Agama::find()->all(), 'Id', 'Agama'),['prompt'=>'- Pilih Agama -'])->label(false)?>
 						</div>
 					</div>
+					
+					<div class='row'>
+					<div class='col-sm-3 label-div'>
+						Golongan Darah
+					</div>
+					<div class='col-sm-9'>
+						 <?= $form->field($data, 'idGoldar')->dropDownList(ArrayHelper::map(GolonganDarah::find()->all(), 'id', 'GolDar'),['prompt'=>'- Pilih -'])->label(false)?>
+					</div>
+				</div>
 					
 					<div class='row'>
 						<div class='col-sm-3 label-div'>

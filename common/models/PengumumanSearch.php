@@ -47,6 +47,7 @@ class PengumumanSearch extends Pengumuman
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+			'sort'=> ['defaultOrder' => ['Tanggal' => SORT_ASC,]]
         ]);
 
         $this->load($params);

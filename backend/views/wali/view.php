@@ -49,6 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
 							<?= $model->Telepon;?>
 						</div>
 					</div>
+					
 					<div class='row rowlist'>
 						<div class='col-sm-3'>
 							Pekerjaan

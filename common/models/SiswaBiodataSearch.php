@@ -45,9 +45,10 @@ class SiswaBiodataSearch extends SiswaBiodata
 
         // add conditions that should always apply here
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+         $dataProvider = new ActiveDataProvider([
+        'query' => $query,
+        'sort'=> ['defaultOrder' => ['JK' => SORT_ASC]]
+    ]);
 
         $this->load($params);
 

@@ -47,6 +47,7 @@ class PekerjaanSearch extends Pekerjaan
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+			'sort'=> ['defaultOrder' => ['Pekerjaan' => SORT_ASC,]]
         ]);
 
         $this->load($params);

@@ -11,6 +11,7 @@ use yii\helpers\Html;
 	</div>
 	<h4><?= Yii::$app->user->identity->member->Nama;?></h4>
 	<span class='member-priviledges'><?= Yii::$app->user->identity->priviledges->Priviledges;?></span><br/>
+	
 </div>
 
 <div class='box no-padding bg-gray-soft'>
@@ -66,6 +67,15 @@ use yii\helpers\Html;
 	<div class="menu-link">
 		<i class="fa fa-calendar"></i>Agenda Kelas</br>
 		<span class="submenu-link">Data Agenda yang Dibuat</span>
+	</div>
+	',['/guru/agenda'])
+	?>
+	</div>
+	<div class='box text-center bg-gray-soft'>
+	<?= Html::a('
+	<div class="menu-link">
+		<i class="fa fa-key"></i>Pengaturan Akun</br>
+		<span class="submenu-link">Pengaturan Akun</span>
 	</div>
 	',['/guru/agenda'])
 	?>

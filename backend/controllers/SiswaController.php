@@ -6,7 +6,10 @@ use Yii;
 use yii\base\Model;
 use common\models\Siswa;
 use common\models\SiswaBiodata;
+use common\models\SiswaBiodataSearch;
 use common\models\SiswaSearch;
+use common\models\nilai;
+use common\models\NilaiSearch;
 use common\models\Member;
 use common\models\User;
 use common\models\Wali;
@@ -46,7 +49,7 @@ class SiswaController extends Controller
     {
         $searchModel = new SiswaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+		
         return $this->render('index-new', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -116,8 +119,8 @@ class SiswaController extends Controller
 			if($member->save() && $user->save(false) ){
 				$model->save();
 				$data->save();
-				//return $this->redirect(['index']);
-				return $this->redirect(['view', 'id' => $model->Id]);
+				return $this->redirect(['index']);
+				//return $this->redirect(['view', 'id' => $model->Id]);
 			}	
 			else {
 				return $this->render('create', [
@@ -141,11 +144,11 @@ class SiswaController extends Controller
 
     public function actionUpdate($id)
     {
-        
 		$model = Siswa::find()->where(['Id' => $id])->one();
 		$data = SiswaBiodata::find()->where(['NIS' => $model->NIS])->one();
 		$member=Member::find()->where(['MemberId' => $model->MemberId])->one();
 		$user = User::find()->where(['MemberId' => $model->MemberId])->one();
+		
 		
 		 if ($model->load(Yii::$app->request->post()) 
 			&& $data->load(Yii::$app->request->post())
@@ -164,21 +167,22 @@ class SiswaController extends Controller
 			}
 			else{
 				$data->Foto=SiswaBiodata::find()->where(['NIS' => $model->NIS])->one()->Foto;
-				$member->Avatar=Siswa::find()->where(['Id' => $id])->one()->Avatar;
+				//$member->Avatar=Siswa::find()->where(['Id' => $id])->one()->Avatar;
 			}
 			
+			// Update 12 Feb 2019 by Ikin
 			/** generate kode member ***/
-			$member->Nama=$data->Nama;
-			$member->GenKode();
-			$member->IdStat=2;//registered
-			$member->IdLev=6;//siswa
+			//$member->Nama=$data->Nama;
+			//$member->GenKode();
+			//$member->IdStat=2;//registered
+			//$member->IdLev=6;//siswa
 			
 			$user->Created=date('Y-m-d');
 			$user->IsVerified=1;
 			$user->Enabled=1;
 			$user->IdPriv=12;//siswa
 			
-			$model->MemberId=$member->MemberId;
+			//$model->MemberId=$member->MemberId;
 			$data->NIS=$model->NIS;
 			$model->IsActive=1;
 			
@@ -238,6 +242,7 @@ class SiswaController extends Controller
 			$model->Alamat=$_POST['Alamat'];
 			$model->IdProv=$_POST['IdProv'];
 			$model->IdKab=$_POST['IdKab'];
+			$model->Kota=$_POST['Kota'];
 			$model->Pos=$_POST['Pos'];
 			$model->Telepon=$_POST['Telepon'];
 			$model->HP=$_POST['HP'];
@@ -278,7 +283,7 @@ class SiswaController extends Controller
             'totalCount' => $query->count(),
         ]);
 		
-		$pics = $query->orderBy(['Id' => SORT_DESC])
+		$pics = $query->orderBy(['Judul' => SORT_ASC])
 			->offset($pagination->offset)
 			->limit($pagination->limit)
 			->all();
@@ -325,6 +330,26 @@ class SiswaController extends Controller
 			'pagination' => $pagination,
 		]);
 	}
+	
+	public function actionNilai()
+    {
+
+         $query = Nilai::find();
+		$pagination = new Pagination([
+            'defaultPageSize' => 24,
+            'totalCount' => $query->count(),
+        ]);
+		
+		$pics = $query->orderBy(['Guru' => SORT_ASC])
+			->offset($pagination->offset)
+			->limit($pagination->limit)
+			->all();
+		
+        return $this->render('_nilai', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 	
 	/** check if nis is exists **/
 	public function actionChecknis(){

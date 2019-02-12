@@ -47,6 +47,7 @@ class GuruAjarSearch extends GuruAjar
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+			'sort'=> ['defaultOrder' => ['KodeKelas' => SORT_ASC,]]
         ]);
 
         $this->load($params);

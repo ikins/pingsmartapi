@@ -2,10 +2,11 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use dosamigos\ckeditor\CKEditor;
+use marqu3s\summernote\Summernote;
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
+
 
 use common\models\MemberLevel;
 use common\models\PengumumanStatus;
@@ -25,9 +26,8 @@ use common\models\PengumumanStatus;
 				<div class='col-sm-8'>
 					<?= $form->field($model, 'Judul')->textInput(['maxlength' => true]) ?>
 
-					<?= $form->field($model, 'Pengumuman')->widget(CKEditor::className(), [
+					<?= $form->field($model, 'Pengumuman')->widget(summernote::className(), [
 						'options' => ['rows' => 5],
-						'preset' => 'basic'
 					])->label('Pengumuman') ?>
 
 					<?=	$form->field($model, 'Target[]')->widget(Select2::className(),

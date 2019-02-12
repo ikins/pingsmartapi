@@ -47,6 +47,7 @@ class PelanggaranSearch extends Pelanggaran
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+			'sort'=> ['defaultOrder' => ['Pelanggaran' => SORT_ASC]]
         ]);
 
         $this->load($params);

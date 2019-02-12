@@ -80,7 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
 							Golongan Darah
 						</div>
 						<div class='col-sm-9'>
-							
+							<?= $model->biodata->golonganDarah->GolDar; ?>
 						</div>
 					</div>
 					<?= Yii::$app->algo->renderSplit(20);?>
@@ -163,11 +163,11 @@ $this->params['breadcrumbs'][] = $this->title;
 								],
 								[
 									'label' => 'Nilai Ulangan',
-									'content' => '',
+									'content' => $this->render('_nilai',['model' => $model]),
 								],
 								[
 									'label' => 'Nilai Raport',
-									'content' => '',
+									'content' => $this->render('_raport',['model' => $model]),
 								],
 								[
 									'label' => 'Agenda',

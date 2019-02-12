@@ -47,6 +47,7 @@ class KelasSearch extends Kelas
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+			'sort'=> ['defaultOrder' => ['Kelas' => SORT_ASC]]
         ]);
 
         $this->load($params);

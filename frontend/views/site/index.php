@@ -29,6 +29,5 @@ $this->title = 'pingSmart';
 		</div>
 	</section>
 	<section class='front-bar'>
-		<?= Yii::getVersion(); ?>
 	</section>
 </div>

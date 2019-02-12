@@ -52,7 +52,7 @@ class MemberLevel extends \yii\db\ActiveRecord
     }
 	
 	public static function getOptions(){
-		$data=  static::find()->orderBy(['Id'=>SORT_ASC])->all();
+		$data=  static::find()->orderBy(['Level'=>SORT_ASC])->all();
 		$value=(count($data)==0)? [''=>'']: \yii\helpers\ArrayHelper::map($data, 'Id','Level'); //id = your ID model, name = your caption
 
 		return $value;

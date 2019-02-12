@@ -2,6 +2,10 @@
 
 use yii\helpers\Html;
 use kartik\grid\GridView;
+use yii\data\Sort;
+
+
+
 $this->title = 'Data Siswa';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -23,6 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				//'filterModel' => $searchModel,
 				'hover' => true,
 				'bordered' => false,
+				'asc' => ['Nama' => SORT_ASC],
 				'columns' => [
 					['class' => 'kartik\grid\SerialColumn'],
 					/*
@@ -48,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
 					
 					[
 						'label' => 'Nama',
-						'attribute' => '',
+						'attribute' => SORT_ASC,
 						'format' => 'raw',
 						'vAlign' => 'middle',
 						'value' => function ($model, $key, $index) { 

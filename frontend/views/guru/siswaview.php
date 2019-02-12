@@ -46,10 +46,10 @@ $this->params['breadcrumbs'][] = $this->title;
 									'label' => 'Galery',
 									'content' => $this->render('_siswa_galeri',['galeri' => $galeri]),
 								],
-								[
+								/*[
 									'label' => 'Pelanggaran',
 									'content' => $this->render('_siswa_record',['model' => $model]),
-								],
+								],*/
 							],
 						]
 						);

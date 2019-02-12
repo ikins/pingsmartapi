@@ -1,7 +1,7 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use dosamigos\ckeditor\CKEditor;
+use marqu3s\summernote\Summernote;
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
@@ -40,9 +40,8 @@ $this->params['breadcrumbs'][] = $this->title;
 						Pengumuman
 					</div>
 					<div class='col-sm-9'>
-						<?= $form->field($model, 'Pengumuman')->widget(CKEditor::className(), [
+						<?= $form->field($model, 'Pengumuman')->widget(summernote::className(), [
 						'options' => ['rows' => 5],
-						'preset' => 'basic'
 					])->label(false) ?>
 					</div>
 				</div>

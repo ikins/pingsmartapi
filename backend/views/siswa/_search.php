@@ -23,7 +23,7 @@ use common\models\Kelas;
 			<?= $form->field($model, 'NIS',['inputOptions' => ['placeholder' => 'Ketik NIS','class' => 'form-control']])->label(false) ?>
 		</div>
 		<div class='col-sm-3'>
-			<?= $form->field($model, 'KodeKelas')->dropDownList(ArrayHelper::map(Kelas::find()->all(), 'Kode', 'Kelas'),['prompt'=>'- Semua Kelas -'])->label(false)?>
+			<?= $form->field($model, 'KodeKelas')->dropDownList(ArrayHelper::map(Kelas::find()->orderBy(['Kelas' => SORT_ASC])->all(), 'Kode', 'Kelas'),['prompt'=>'- Semua Kelas -'])->label(false)?>
 		</div>
 		<div class='col-sm-3'>
 			 <?= Html::submitButton('<i class="fa fa-search"></i> Search', ['class' => 'btn btn-primary']) ?>

@@ -120,8 +120,8 @@ $menuItems[] =
 		'icon' => 'user',
 		'url' => '#',
 		'items' => [
-			['label' => 'Profil Saya', 'icon' => 'dedent', 'url' => ['/user/profile'],],
-			['label' => 'Ganti Password', 'icon' => 'key', 'url' => ['/user/gantipass'],],
+			['label' => 'Profil Saya', 'icon' => 'dedent', 'url' => ['/member/profile'],],
+			['label' => 'Ganti Password', 'icon' => 'key', 'url' => ['/user/passchange'],],
 		]
 	
 	];

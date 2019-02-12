@@ -14,6 +14,7 @@ use Yii;
  * @property string $KotaLahir
  * @property string $TglLahir
  * @property integer $IdAgm
+ * @property integer $idGoldar
  * @property string $Alamat
  * @property string $Kota
  * @property string $Telepon
@@ -53,7 +54,7 @@ class SiswaBiodata extends \yii\db\ActiveRecord
         return [
             [['JK'], 'string'],
             [['TglLahir'], 'safe'],
-            [['IdAgm', 'IdKab', 'IdProv', 'IdDom', 'IdKabDom', 'IdProvDom'], 'integer'],
+            [['IdAgm', 'IdKab', 'IdProv', 'IdDom', 'IdKabDom', 'IdProvDom', 'idGoldar'], 'integer'],
             [['NIS'], 'string', 'max' => 18],
             [['Nama'], 'string', 'max' => 160],
             [['KotaLahir'], 'string', 'max' => 50],
@@ -63,6 +64,7 @@ class SiswaBiodata extends \yii\db\ActiveRecord
             [['Pos'], 'string', 'max' => 5],
 			[['TglLahir','IdProv','IdDom','IdProvDom','IdKab','IdKabDom'], 'required'],
             [['IdAgm'], 'exist', 'skipOnError' => true, 'targetClass' => Agama::className(), 'targetAttribute' => ['IdAgm' => 'Id']],
+			[['idGoldar'], 'exist', 'skipOnError' => true, 'targetClass' => GolonganDarah::className(), 'targetAttribute' => ['idGoldar' => 'id']],
             [['IdDom'], 'exist', 'skipOnError' => true, 'targetClass' => Domisili::className(), 'targetAttribute' => ['IdDom' => 'Id']],
             [['IdKabDom'], 'exist', 'skipOnError' => true, 'targetClass' => Kabupaten::className(), 'targetAttribute' => ['IdKabDom' => 'Id']],
             [['IdProvDom'], 'exist', 'skipOnError' => true, 'targetClass' => Provinsi::className(), 'targetAttribute' => ['IdProvDom' => 'Id']],
@@ -83,6 +85,7 @@ class SiswaBiodata extends \yii\db\ActiveRecord
             'KotaLahir' => 'Kota Lahir',
             'TglLahir' => 'Tgl Lahir',
             'IdAgm' => 'Agama',
+			'idGoldar' => 'Golongan Darah',
             'Alamat' => 'Alamat',
             'Kota' => 'Kota',
             'Telepon' => 'Telepon',
@@ -95,7 +98,7 @@ class SiswaBiodata extends \yii\db\ActiveRecord
             'IdKabDom' => 'Kabupaten Domisili',
             'IdProvDom' => 'Provinsi Domisili',
             'TeleponDom' => 'Telepon Dom',
-            'Foto' => 'Foto',
+            'Foto' => 'Avatar',
             'Keterangan' => 'Keterangan',
         ];
     }
@@ -106,6 +109,14 @@ class SiswaBiodata extends \yii\db\ActiveRecord
     public function getAgama()
     {
         return $this->hasOne(Agama::className(), ['Id' => 'IdAgm']);
+    }
+	
+	/**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGolonganDarah()
+    {
+        return $this->hasOne(GolonganDarah::className(), ['id' => 'idGoldar']);
     }
 
     /**
@@ -141,7 +152,7 @@ class SiswaBiodata extends \yii\db\ActiveRecord
     }
 	
 	public static function getOptions(){
-		$data=  static::find()->orderBy(['Id'=>SORT_ASC])->all();
+		$data=  static::find()->orderBy(['Nama'=>SORT_ASC])->all();
 		$value=(count($data)==0)? [''=>'']: \yii\helpers\ArrayHelper::map($data, 'NIS','Nama'); //id = your ID model, name = your caption
 
 		return $value;

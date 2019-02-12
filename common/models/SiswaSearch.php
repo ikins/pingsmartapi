@@ -6,6 +6,8 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\Siswa;
+use common\models\SiswaBiodata;
+use common\models\SiswaBiodataSearch;
 
 /**
  * SiswaSearch represents the model behind the search form about `common\models\Siswa`.
@@ -42,7 +44,8 @@ class SiswaSearch extends Siswa
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-			//'sort' => ['defaultOrder' => ['`siswa_biodata`.`Nama`' => SORT_ASC]]
+			
+			'sort' => ['defaultOrder' => ['KodeKelas' => SORT_ASC]]
         ]);
 
         $this->load($params);

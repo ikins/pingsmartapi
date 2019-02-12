@@ -41,13 +41,14 @@ class SiswaRecordSearch extends SiswaRecord
      */
     public function search($params)
     {
-        $query = SiswaRecord::find();
+        $query = SiswaRecord::find()->JoinWith(['pegawai', 'pelanggaran', 'siswa']);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        'query' => $query,
+        'sort'=> ['defaultOrder' => ['Tanggal' => SORT_ASC]]
+    ]);
 
         $this->load($params);
 

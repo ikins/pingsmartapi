@@ -47,6 +47,7 @@ class PegawaiBiodataSearch extends PegawaiBiodata
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+			'sort'=> ['defaultOrder' => ['Nama' => SORT_ASC]]
         ]);
 
         $this->load($params);

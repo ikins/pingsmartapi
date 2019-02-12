@@ -45,9 +45,10 @@ class GalerySearch extends Galery
 
         // add conditions that should always apply here
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+         $dataProvider = new ActiveDataProvider([
+        'query' => $query,
+        'sort'=> ['defaultOrder' => ['IdAib' => SORT_ASC,]]
+    ]);
 
         $this->load($params);
 

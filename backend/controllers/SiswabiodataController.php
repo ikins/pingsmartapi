@@ -37,7 +37,9 @@ class SiswabiodataController extends Controller
     {
         $searchModel = new SiswaBiodataSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+		
+		
+		
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -51,6 +53,7 @@ class SiswabiodataController extends Controller
      */
     public function actionView($id)
     {
+		
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);

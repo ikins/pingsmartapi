@@ -67,10 +67,10 @@ Modal::begin([
 						<?= Html::textInput('Kota',null,['class' => 'form-control','id' => 'kota']);?>
 					</div>
 					<div class='col-sm-2 label-div'>
-						Pos
+						Kode Pos
 					</div>
 					<div class='col-sm-3'>
-						<?= Html::textInput('Pos',null,['class' => 'form-control','id' => 'pos']);?>
+						<?= Html::textInput('Pos',null,['class' => 'form-control','id' => 'pos' , 'placeholder' => "Kode Pos"]);?>
 					</div>
 				</div>
 				

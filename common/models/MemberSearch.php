@@ -46,8 +46,10 @@ class MemberSearch extends Member
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        'query' => $query,
+        'sort'=> ['defaultOrder' => ['Nama' => SORT_ASC]]
+    ]);
+       
 
         $this->load($params);
 

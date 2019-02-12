@@ -25,6 +25,7 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
+
     <?php
 	$controller = Yii::$app->controller;
 	$default_controller = Yii::$app->defaultRoute;

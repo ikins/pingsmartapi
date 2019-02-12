@@ -79,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
 							Golongan Darah
 						</div>
 						<div class='col-sm-9'>
-							
+							<?= $model->biodata->idGoldar; ?>
 						</div>
 					</div>
 					<?= Yii::$app->algo->renderSplit(20);?>
@@ -118,7 +118,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				],
 			]) ?>
 		</div>
-	</div>
+	
 
     
 

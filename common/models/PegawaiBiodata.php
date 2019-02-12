@@ -45,13 +45,14 @@ class PegawaiBiodata extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['IdProv', 'IdKab','IdAgm'], 'integer'],
+            [['IdProv', 'IdKab','IdAgm','idGoldar'], 'integer'],
             [['TglLahir'], 'safe'],
             [['JK'], 'string'],
             [['IdPeg', 'GelarDepan', 'GelarBelakang', 'Telepon', 'HP'], 'string', 'max' => 18],
             [['Nama', 'Kota', 'KotaLahir'], 'string', 'max' => 100],
             [['Alamat', 'Foto', 'Keterangan'], 'string', 'max' => 255],
             [['Pos'], 'string', 'max' => 5],
+			[['Foto'], 'file', 'extensions'=>'jpg, gif, png','skipOnEmpty' => true],
 			[['IdProv', 'IdKab','TglLahir'],'required'],
             [['IdKab'], 'exist', 'skipOnError' => true, 'targetClass' => Kabupaten::className(), 'targetAttribute' => ['IdKab' => 'Id']],
             [['IdPeg'], 'exist', 'skipOnError' => true, 'targetClass' => Pegawai::className(), 'targetAttribute' => ['IdPeg' => 'IdPeg']],
@@ -74,6 +75,7 @@ class PegawaiBiodata extends \yii\db\ActiveRecord
             'Kota' => 'Kota',
             'IdProv' => 'Id Prov',
 			'IdAgm' => 'Id Agama',
+			'idGoldar' => 'Id Goldar',
             'IdKab' => 'Id Kab',
             'KotaLahir' => 'Kota Lahir',
             'TglLahir' => 'Tgl Lahir',
@@ -105,5 +107,10 @@ class PegawaiBiodata extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Agama::className(), ['Id' => 'IdAgm']);
     }
+	
+	public function getGolonganDarah()
+	{
+		return $this->hasOne(GolonganDarah::className(), ['id' => 'idGoldar']);
+	}
 
 }

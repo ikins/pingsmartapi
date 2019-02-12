@@ -42,6 +42,8 @@ class Siswa extends \yii\db\ActiveRecord
             [['Billing'], 'number'],
             [['NIS', 'NISN'], 'string', 'max' => 18],
             [['KodeKelas'], 'string', 'max' => 8],
+			[['KodePel'], 'string'],
+			[['idGoldar'], 'string'],
             [['NIS'], 'unique'],
 			[['NIS', 'KodeKelas'], 'required'],
             [['KodeKelas'], 'exist', 'skipOnError' => true, 'targetClass' => Kelas::className(), 'targetAttribute' => ['KodeKelas' => 'Kode']],
@@ -58,6 +60,7 @@ class Siswa extends \yii\db\ActiveRecord
             'NIS' => 'Nomor Induk',
             'NISN' => 'Nisn',
             'KodeKelas' => 'Kode Kelas',
+			'KodePel' => 'Kode Pelajaran',
             'ThnMasuk' => 'Thn Masuk',
             'Point' => 'Point',
             'Billing' => 'Billing',
@@ -73,13 +76,17 @@ class Siswa extends \yii\db\ActiveRecord
         return $this->hasOne(Kelas::className(), ['Kode' => 'KodeKelas']);
     }
 
+	
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getBiodata()
     {
+		
         return $this->hasOne(SiswaBiodata::className(), ['NIS' => 'NIS']);
     }
+	
+	
 
     /**
      * @return \yii\db\ActiveQuery

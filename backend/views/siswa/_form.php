@@ -9,6 +9,8 @@ use common\models\Kabupaten;
 use common\models\Domisili;
 use common\models\Agama;
 use common\models\Kelas;
+use common\models\GolonganDarah;
+use common\models\SiswaBiodata;
 use yii\helpers\Url;
 use kartik\file\FileInput;
 ?>
@@ -59,24 +61,26 @@ use kartik\file\FileInput;
 						<div class='col-sm-3 label-div'>
 							Nama
 						</div>
-						<div class='col-sm-9'>
-							<div class='row'>
-								<div class='col-sm-10'>
+								<div class='col-sm-9'>
 									<?= $form->field($data, 'Nama')->textInput(['maxlength' => true])->label(false) ?>
 								</div>
-								<div class='col-sm-2'>
-									<?= $form->field($data, 'JK')->dropDownList([ 'L' => 'L', 'P' => 'P', ], ['prompt' => ''])->label(false) ?>
+								</div>		
+					<div class='row'>
+						<div class='col-sm-3 label-div'>
+							Jenis Kelamin
+								</div>
+						<div class='col-sm-3'>
+									<?= $form->field($data, 'JK')->dropDownList([ 'Laki-Laki' => 'Laki-Laki', 'Perempuan' => 'Perempuan', ], ['prompt' => '- Pilih -'])->label(false) ?>
 								</div>
 							</div>
 							 
-						</div>
-					</div>
+						
 					<div class='row'>
 						<div class='col-sm-3 label-div'>
 							Kelas
 						</div>
 						<div class='col-sm-9'>
-							 <?= $form->field($model, 'KodeKelas')->dropDownList(ArrayHelper::map(Kelas::find()->all(), 'Kode', 'Kelas'),[
+							 <?= $form->field($model, 'KodeKelas')->dropDownList(ArrayHelper::map(Kelas::find()->orderBy(['Kelas' => SORT_ASC])->all(), 'Kode', 'Kelas'),[
 									'prompt'=>'- Pilih Kelas -'])->label(false)?>
 						</div>
 					</div>
@@ -126,7 +130,7 @@ use kartik\file\FileInput;
 						</div>
 						<div class='col-sm-9'>
 							<div class='row'>
-								<div class='col-sm-5'>
+								<div class='col-sm-6'>
 									<?= $form->field($data,'IdProv')->dropDownList(ArrayHelper::map(Provinsi::find()->orderBy('Provinsi')->all(),'Id','Provinsi'),[
 										'prompt'=>'- Pilih Provinsi -',
 										'onchange'=>'
@@ -138,17 +142,21 @@ use kartik\file\FileInput;
 											'
 										])->label(false);?>
 								</div>
-								<div class='col-sm-5'>
+								<div class='col-sm-6'>
 									<?= $form->field($data, 'IdKab')->dropDownList(ArrayHelper::map(Kabupaten::find()->all(), 'Id', 'Kabupaten'),[
 									'prompt'=>'- Pilih Kabupaten -'])->label(false)?>
 								</div>
-								<div class='col-sm-2'>
-									<?= $form->field($data, 'Pos')->textInput(['maxlength' => true])->label(false) ?>
 								</div>
-							</div>
 						</div>
 					</div>
-									
+							<div class='row'>
+						<div class='col-sm-3 label-div'>
+							Kode Pos
+								</div>
+						<div class='col-sm-3'>
+									<?= $form->field($data, 'Pos')->textInput(['maxlength' => true, 'placeholder' => "Kode Pos"])->label(false) ?>
+								</div>
+							</div>		
 					<div class='row'>
 						<div class='col-sm-3 label-div'>
 							Telepon
@@ -186,7 +194,7 @@ use kartik\file\FileInput;
 						</div>
 						<div class='col-sm-9'>
 							<div class='row'>
-								<div class='col-sm-5'>
+								<div class='col-sm-6'>
 									<?= $form->field($data,'IdProvDom')->dropDownList(ArrayHelper::map(Provinsi::find()->orderBy('Provinsi')->all(),'Id','Provinsi'),[
 										'prompt'=>'- Pilih Provinsi -',
 										'onchange'=>'
@@ -198,18 +206,25 @@ use kartik\file\FileInput;
 											'
 										])->label(false);?>
 								</div>
-								<div class='col-sm-5'>
+								<div class='col-sm-6'>
 									<?= $form->field($data, 'IdKabDom')->dropDownList(ArrayHelper::map(Kabupaten::find()->all(), 'Id', 'Kabupaten'),[
 									'prompt'=>'- Pilih Kabupaten -'])->label(false)?>
 								</div>
 								<div class='col-sm-2'>
-									<?= $form->field($data, 'Pos')->textInput(['maxlength' => true])->label(false) ?>
+									
 								</div>
 							</div>
 						</div>
 					
 					</div>
-				
+				<div class='row'>
+						<div class='col-sm-3 label-div'>
+							Kode Pos
+								</div>
+						<div class='col-sm-3'>
+									<?= $form->field($data, 'Pos')->textInput(['maxlength' => true, 'placeholder' => "Kode Pos"])->label(false) ?>
+								</div>
+							</div>
 					<div class='row'>
 						<div class='col-sm-3 label-div'>
 							Telepon
@@ -230,6 +245,15 @@ use kartik\file\FileInput;
 						 <?= $form->field($data, 'IdAgm')->dropDownList(ArrayHelper::map(Agama::find()->all(), 'Id', 'Agama'),['prompt'=>'- Pilih -'])->label(false)?>
 					</div>
 				</div>
+				
+				<div class='row'>
+						<div class='col-sm-3 label-div'>
+							Golongan Darah
+								</div>
+						<div class='col-sm-5'>
+									 <?= $form->field($model, 'idGoldar')->dropDownList(ArrayHelper::map(GolonganDarah::find()->all(), 'id', 'GolDar'),['prompt'=>'- Pilih -'])->label(false)?>
+								</div>
+							</div>
 				
 				<div class='row'>
 					<div class='col-sm-3 label-div'>

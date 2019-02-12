@@ -2,6 +2,19 @@
 
 use yii\helpers\Html;
 use kartik\grid\GridView;
+use yii\data\Sort;
+
+$sort = new Sort([
+    'attributes' => [
+        'age',
+        'name' => [
+            'asc' => ['Nama' => SORT_ASC],
+           
+            'default' => SORT_DESC,
+            'label' => 'Nama',
+        ],
+    ],
+]);
 
 $this->title = 'Data Guru';
 $this->params['breadcrumbs'][] = $this->title;
@@ -76,7 +89,7 @@ $this->params['breadcrumbs'][] = $this->title;
 								  </button>
 								  <ul class="dropdown-menu">
 									<li>'.Html::a('Tampilkan',['view','id'=> $model->Id]).'</li>
-									<li>'.Html::a('Ubah',['update','id'=> $model->Id]).'</li>
+									<li>'.Html::a('Ubah',['/pegawai/update','id'=> $model->Id]).'</li>
 									<li role="separator" class="divider"></li>
 									<li>'.Html::a('Hapus',['delete','id' => $model->Id],[
 												'title' => Yii::t('yii', 'Delete'),

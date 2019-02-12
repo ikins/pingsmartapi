@@ -31,6 +31,16 @@ use kartik\grid\GridView;
 								return Html::a($model->Judul,['/guru/kelasagenda-view','id' => $model->Id]);
 							},
 						],
+						
+						[
+							'label' => 'Deskripsi',
+							'attribute' => '',
+							'format' => 'raw',
+							'vAlign' => 'middle',
+							'value' => function ($model, $key, $index) { 
+								return Html::a($model->Deskripsi,['/guru/kelasagenda-view','id' => $model->Id]);
+							},
+						],
 												
 						[
 							'label' => 'Kelas',
@@ -86,6 +96,16 @@ use kartik\grid\GridView;
 							'value' => function ($model, $key, $index) { 
 								return $model->Keterangan;
 							},
+						],
+						
+						[
+							'label' => 'Hapus',
+							'attribute' => '',
+							'format' => 'raw',
+							'vAlign' => 'middle',
+							'value' => function ($model, $key, $index) {
+							return '<button class="btn btn-xs btn-danger" id="btn-select_'.$model->Id.'" name="'.$model->Id.'"><i class="fa fa-trash"></i></button>';
+							}, 
 						],
 
 					],

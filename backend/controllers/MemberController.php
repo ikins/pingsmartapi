@@ -49,24 +49,26 @@ class MemberController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
-
-    
-    public function actionUpdate($id)
+public function actionProfile()
     {
-        $model = $this->findModel($id);
-		
+        $model=Member::find()->where(['Id' => Yii::$app->user->identity->member->Id ])->one();
+       return $this->render('profile', [
+            'model' => $model,
+        ]);
+    }
+     public function actionUpdate($id)
+    {
+        $model=Member::find()->where(['Id' => Yii::$app->user->identity->member->Id ])->one();
 		if($model->load(Yii::$app->request->post())){
 			
 			$image=UploadedFile::getInstance($model,'Avatar');
 			if (!$image == null) {
 				$model->Avatar=$image->name;
-				
-				$path = Yii::$app->params['imagePath'] .'/user/'.$model->Avatar;
+				$path = Yii::$app->params['imagePath'] .'/user/'.$model->Avatar; 
 				$image->saveAs($path);
-				
 			}
 			else{
-				$model->Avatar=Member::find()->where(['Id' => $id])->one()->Avatar;
+				$model->Avatar = $model::findOne($model->Id)->Avatar;
 			}
 			
 			if ($model->save()){
@@ -186,3 +188,4 @@ class MemberController extends Controller
         ]);
     }
 }
+

@@ -48,6 +48,7 @@ class NilaiDetailSearch extends NilaiDetail
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+			'sort'=> ['defaultOrder' => ['Kode' => SORT_ASC,]]
         ]);
 
         $this->load($params);

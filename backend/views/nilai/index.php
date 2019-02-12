@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			<?= $this->render('_search',['model' => $searchModel]);?>
 			<?= GridView::widget([
 				'dataProvider' => $dataProvider,
-				//'filterModel' => $searchModel,
+				'filterModel' => $searchModel,
 				'columns' => [
 					['class' => 'kartik\grid\SerialColumn'],
 
@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
 						'groupOddCssClass'=>'kv-grouped-row',  
 						'groupEvenCssClass'=>'kv-grouped-row', 
 						'value' => function ($model, $key, $index) { 
-							return 'Kelas '.Html::a($model->kelas->Kelas,['/kelas/view','id' => $model->kelas->Id]);
+							return 'Kelas '.Html::a($model->kelas->Kode,['/kelas/view','id' => $model->kelas->Id]);
 						},
 					],
 					

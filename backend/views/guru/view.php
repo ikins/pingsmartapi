@@ -126,7 +126,8 @@ $this->params['breadcrumbs'][] = $this->title;
 								],
 								[
 									'label' => 'Nilai',
-									'content' => '',
+									'content' => $this->render('_nilai',['model' => $model]),
+									
 								],
 								
 							],

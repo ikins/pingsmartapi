@@ -33,6 +33,7 @@ use yii\helpers\Html;
                             <p>
                                 <?= Yii::$app->user->identity->member->Nama;?>
                                 <small><?= Yii::$app->user->identity->priviledges->Priviledges;?></small>
+								<small>Nomor Registrasi : <?= Yii::$app->user->identity->MemberId;?></small>
                             </p>
                         </li>
                         <!-- Menu Body -->
@@ -50,7 +51,11 @@ use yii\helpers\Html;
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                <?= Html::a(
+                                    'Profile',
+                                    ['/member/profile'],
+                                    ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']
+                                ) ?>
                             </div>
                             <div class="pull-right">
                                 <?= Html::a(

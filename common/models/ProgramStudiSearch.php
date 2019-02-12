@@ -47,6 +47,7 @@ class ProgramStudiSearch extends ProgramStudi
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+			'sort'=> ['defaultOrder' => ['Id' => SORT_ASC,]]
         ]);
 
         $this->load($params);

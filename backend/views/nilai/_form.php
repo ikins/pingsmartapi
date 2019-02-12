@@ -28,7 +28,7 @@ use yii\helpers\Url;
 							Kelas
 						</div>
 						<div class='col-sm-9'>
-							<?= $form->field($model, 'KodeKelas')->dropDownList(ArrayHelper::map(Kelas::find()->all(), 'Kode', 'Kelas'),['prompt'=>'- Pilih Kelas -'])->label(false)?>
+							<?= $form->field($model, 'KodeKelas')->dropDownList(ArrayHelper::map(Kelas::find()->orderBy(['Kelas' => SORT_ASC])->all(), 'Kode', 'Kelas'),['prompt'=>'- Pilih Kelas -'])->label(false)?>
 						</div>
 					</div>
 					
@@ -46,7 +46,7 @@ use yii\helpers\Url;
 							Mata Pelajaran
 						</div>
 						<div class='col-sm-9'>
-							<?= $form->field($model, 'KodePel')->dropDownList(ArrayHelper::map(Pelajaran::find()->all(), 'Kode', 'Pelajaran'),['prompt'=>'- Pilih Pelajaran -'])->label(false)?>
+							<?= $form->field($model, 'KodePel')->dropDownList(ArrayHelper::map(Pelajaran::find()->orderBy(['Pelajaran' => SORT_ASC])->all(), 'Kode', 'Pelajaran'),['prompt'=>'- Pilih Pelajaran -'])->label(false)?>
 						</div>
 					</div>
 					
@@ -74,7 +74,7 @@ use yii\helpers\Url;
 							Nama Guru
 						</div>
 						<div class='col-sm-9'>
-							<?= $form->field($model, 'IdPeg')->dropDownList(ArrayHelper::map(PegawaiBiodata::find()->all(), 'IdPeg', 'Nama'),['prompt'=>'- Pilih Guru -'])->label(false)?>
+							<?= $form->field($model, 'IdPeg')->dropDownList(ArrayHelper::map(PegawaiBiodata::find()->orderBy(['Nama' => SORT_ASC])->all(), 'IdPeg', 'Nama'),['prompt'=>'- Pilih Guru -'])->label(false)?>
 						</div>
 					</div>
 					

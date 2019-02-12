@@ -85,7 +85,7 @@ use common\models\KelasLevel;
 							Wali Kelas
 						</div>
 						<div class='col-sm-9'>
-							<?= $form->field($model, 'IdWk')->dropDownList(ArrayHelper::map(Member::find()->where(['IdLev' => 4])->all(), 'MemberId', 'Nama'),['prompt'=>'- Pilih Wali Kelas -'])->label(false)?>
+							<?= $form->field($model, 'IdWk')->dropDownList(ArrayHelper::map(Member::find()->orderBy(['IdLev' => 4 ])->all(), 'MemberId', 'Nama'),['prompt'=>'- Pilih Wali Kelas -'])->label(false)?>
 						</div>
 					</div>
 					

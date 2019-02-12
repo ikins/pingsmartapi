@@ -31,6 +31,15 @@ $this->params['breadcrumbs'][] = $this->title;
 						},
 					],
 					[
+						'label' => 'NIS',
+						'attribute' => '',
+						'format' => 'raw',
+						'vAlign' => 'middle',
+						'value' => function ($model, $key, $index) { 
+							return Html::a('<strong>'.$model->siswa->NIS.'</strong>',['view','id' => $model->Id]);
+						},
+					],
+					[
 						'label' => 'Nama Siswa',
 						'attribute' => '',
 						'format' => 'raw',
@@ -38,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
 						'value' => function ($model, $key, $index) { 
 							return Html::a('<strong>'.$model->siswa->biodata->Nama.'</strong>',['view','id' => $model->Id]);
 						},
-					],
+					],					
 					[
 						'label' => 'Pelanggaran',
 						'attribute' => '',

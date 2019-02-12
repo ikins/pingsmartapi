@@ -6,11 +6,14 @@ use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\auth\HttpBasicAuth;
+use yii\filters\Cors;
 
 use common\models\BankAccount;
 use common\models\Plan;
 use common\models\User;
 use common\models\Siswa;
+use common\models\Hari;
 use common\models\Jadwal;
 use common\models\GaleryAlbum;
 use common\models\Galery;
@@ -20,9 +23,35 @@ use common\models\PelajaranGroup;
 use common\models\Pengumuman;
 use common\models\Nilai;
 use common\models\NilaiDetail;
+
+
 class ApiController extends Controller
 {
 	
+	public function behaviors()
+	{
+	    return [
+	        'corsFilter' => [
+	            'class' => \yii\filters\Cors::className(),
+	            'cors' => [
+	                // restrict access to
+	                'Origin' => ['*'],
+	                // Allow only POST and PUT methods
+	                'Access-Control-Request-Method' => ['POST', 'PUT', 'GET'],
+	                // Allow only headers 'X-Wsse'
+	                'Access-Control-Request-Headers' => ['X-Wsse'],
+	                // Allow credentials (cookies, authorization headers, etc.) to be exposed to the browser
+	                'Access-Control-Allow-Credentials' => true,
+	                // Allow OPTIONS caching
+	                'Access-Control-Max-Age' => 3600,
+	                // Allow the X-Pagination-Current-Page header to be exposed to the browser.
+	                'Access-Control-Expose-Headers' => ['X-Pagination-Current-Page'],
+	            ],
+
+	        ],
+	    ];
+	}
+
 	public function actions()
     {
 	   Yii::$app->controller->enableCsrfValidation = false;
@@ -52,12 +81,9 @@ class ApiController extends Controller
     
 	*/
 	
-	public function actionAuthGuru($uagent,$user,$pass)
+	public function actionAuthGuru($user,$pass)
     {
       
-		if (isset($uagent)){
-			// $username=base64_decode($user);
-			// $password=base64_decode($pass);
 			$username=$user;
 			$password=$pass;	
 			
@@ -65,7 +91,7 @@ class ApiController extends Controller
 			
 			//if($model->PasswordResetToken == null){$model->generatePasswordResetToken();}
 			
-			if(Yii::$app->security->validatePassword($password, $model->Password) == 1){
+			if(($model != null) AND (Yii::$app->security->validatePassword($password, $model->Password) == 1)){
 						
 				$jd=new Jadwal;	
 												
@@ -98,10 +124,7 @@ class ApiController extends Controller
 				$result = ['response_code' => 0, 'messages' => 'Username / Password Salah', 'status' => true, 'data' => 'Username / Password Salah'];
 				return \yii\helpers\Json::encode($result);
 			}
-		}
-		else{
-			return "Invalid Authentication Request";
-		}
+		
 		
     }
     
@@ -751,16 +774,12 @@ class ApiController extends Controller
 	fungsi authentifikasi untuk login dan mengambil token
 	token disimpan sebagai authkey untuk tahap berikutnya
     
-    http://pingsmart.gallerysneakers27.com/api/auth-wali?uagent=TGPXtvB-iPlwrFOVC8e5wOSlIXVbXc7O&user=abduh&pass=123456
+    http://pingsmart.gallerysneakers27.com/api/auth-wali?user=abduh&pass=123456
     
 	*/
 	
-	public function actionAuthWali($uagent,$user,$pass)
+	public function actionAuthWali($user,$pass)
     {
-      
-		if (isset($uagent)){
-			// $username=base64_decode($user);
-			// $password=base64_decode($pass);
 			$username=$user;
 			$password=$pass;	
 			
@@ -768,7 +787,7 @@ class ApiController extends Controller
 			
 			//if($model->PasswordResetToken == null){$model->generatePasswordResetToken();}
 			
-			if(Yii::$app->security->validatePassword($password, $model->Password) == 1){
+			if(($model != null) AND (Yii::$app->security->validatePassword($password, $model->Password) == 1)){
 												
 				$arrid=array();
 				array_push($arrid,[
@@ -799,10 +818,6 @@ class ApiController extends Controller
 				$result = ['response_code' => 0, 'messages' => 'Username / Password Salah', 'status' => true, 'data' => 'Username / Password Salah'];
 				return \yii\helpers\Json::encode($result);
 			}
-		}
-		else{
-			return "Invalid Authentication Request";
-		}
 		
     }
 
@@ -1046,16 +1061,13 @@ class ApiController extends Controller
 	fungsi authentifikasi untuk login dan mengambil token
 	token disimpan sebagai authkey untuk tahap berikutnya
     
-    http://pingsmart.yukbaca.com/api/auth?uagent=MXWB-7Myn7my18tjZtKFN7Igk16bw6T8&user=veronica&pass=danniramdan
+    http://pingsmart.yukbaca.com/api/auth?user=veronica&pass=danniramdan
     
 	*/
 	
-	public function actionAuth($uagent,$user,$pass)
+	public function actionAuth($user,$pass)
     {
       
-		if (isset($uagent)){
-			// $username=base64_decode($user);
-			// $password=base64_decode($pass);
 			$username=$user;
 			$password=$pass;	
 			
@@ -1063,14 +1075,17 @@ class ApiController extends Controller
 			
 			//if($model->PasswordResetToken == null){$model->generatePasswordResetToken();}
 			
-			if(Yii::$app->security->validatePassword($password, $model->Password) == 1){
-												
+			//jika password & username sesuai
+			// 02/02/2019
+			if(($model != null) AND (Yii::$app->security->validatePassword($password, $model->Password) == 1)){
+
 				$arrid=array();
 				array_push($arrid,[
 					'Id' => $model->member->Id,
 					'Nama' => $model->member->Nama,
 					'MemberId' => $model->MemberId,
 					'NIS' => $model->member->siswa->NIS,
+					'NISN' => $model->member->siswa->NISN,
 					'Priviledges' => $model->priviledges->Priviledges,
 					'PrivId' => $model->IdPriv,
 					'Avatar' => $model->member->Avatar,
@@ -1078,7 +1093,7 @@ class ApiController extends Controller
 					'IdLev' => $model->member->IdLev,
 					'Level' => $model->member->level->Level,
 					'IsVerified' => $model->IsVerified,
-					'Token' => $model->AuthKey,
+					'Token' => $model->AuthKey
 				]);
 				
 				$model->setLoggedIn();
@@ -1087,12 +1102,9 @@ class ApiController extends Controller
 			
 			}
 			else{
-				echo "Username / Password Salah";
+				$result = ['response_code' => 0, 'messages' => 'Username/Password Salah', 'status' => true ];
+				return \yii\helpers\Json::encode($result);
 			}
-		}
-		else{
-			return "Invalid Authentication Request";
-		}
 		
     }
 	
@@ -1217,10 +1229,12 @@ class ApiController extends Controller
 					'Nama' => $s->biodata->Nama,
 					'KodeKelas' => $s->KodeKelas,
 					'Kelas' => $s->kelas->Kelas,
+					'JumlahSiswa' => $s->kelas->Jumlah,
 					'Point' => $s->Point,
+					'Rangking' => $s->Rangking,
 					'Billing' => $s->Billing,
 					'Lahir' => $s->biodata->KotaLahir,
-					'TglLahir' => $s->biodata->TglLahir,
+					'TglLahir' => date('d M Y', strtotime($s->biodata->TglLahir)),
 					'Agama' => $s->biodata->agama->Agama,
 					'Avatar' => 'frontend/images/user/'.$s->biodata->Foto,
 					
@@ -1296,22 +1310,37 @@ class ApiController extends Controller
 			if($model != null){
 				
 				$s = Siswa::find()->where(['NIS'=>$nis])->one();
-				$query=Jadwal::find()->where(['KodeKelas' => $s->KodeKelas])->all();
-				
-				$arrObject=array();
-				foreach ($query as $q){
-					array_push($arrObject,[
-					'Id' => $q->Id,
-					'Hari' => $q->hari->Hari,
-					'JamMulai' => substr($q->JamMulai,0,5),
-					'JamAkhir' => substr($q->JamAkhir,0,5),
-					'Kode' => $q->KodePel,
-					'Pelajaran' => $q->pelajaran->Pelajaran,
-					'Guru' => $q->IdGuru =='' ?'':$q->guru->GelarDepan.' '.$q->guru->Nama.' '.$q->guru->GelarBelakang,
+				//----------------------Hari--------------------------------
+				$query_hari=Hari::find()->all();
+
+				$arrHari=array();
+				foreach ($query_hari as $qh){
+					$query_jadwal=Jadwal::find()
+					->where(['KodeKelas' => $s->KodeKelas])->andWhere(['IdHari' => $qh->Id])->all();
+
+					$arrObject=array();
+					foreach ($query_jadwal as $q){
+						array_push($arrObject,[
+						'Id' => $q->Id,
+						'Hari' => $q->hari->Hari,
+						'JamMulai' => substr($q->JamMulai,0,5),
+						'JamAkhir' => substr($q->JamAkhir,0,5),
+						'Kode' => $q->KodePel,
+						'Pelajaran' => $q->pelajaran->Pelajaran,
+						'Guru' => $q->IdGuru =='' ?'':$q->guru->GelarDepan.' '.$q->guru->Nama.' '.$q->guru->GelarBelakang,
+						]);
+					}
+
+					array_push($arrHari,[
+					'Id' => $qh->Id,
+					'Hari' => $qh->Hari,
+					'Jadwal' => $arrObject
 					]);
 				}
+
+				
 								
-				$result = ['response_code' => 1, 'messages' => 'Berhasil', 'status' => true, 'data' => $arrObject, ];
+				$result = ['response_code' => 1, 'messages' => 'Berhasil', 'status' => true, 'data' => $arrHari, ];
 				return \yii\helpers\Json::encode($result);
 			}
 			else{
@@ -1558,6 +1587,11 @@ class ApiController extends Controller
 		}
 			
 	}
+
+	/**
+	fungsi nilai raport
+	http://pingsmart.gallerysneakers27.com/api/siswa-nilai-raport
+	*/
 	
 	public function actionSiswaNilaiRaport(){
 		
@@ -1959,8 +1993,15 @@ class ApiController extends Controller
 				$s = Siswa::find()->where(['NIS'=>$nis])->one();
 				$query=Pengumuman::find()->where(['IdStat' => 2])->andFilterWhere(['LIKE','KodeKelas',$s->KodeKelas])->all();
 				
+
 				$arrObject=array();
-				array_push($arrObject,$query);
+				foreach ($query as $q){
+					array_push($arrObject,[
+					'Id' => $q->Id,
+					'Tanggal' => $q->Tanggal,
+					'Judul' => $q->Judul,
+					]);
+				}
 												
 				$result = ['response_code' => 1, 'messages' => 'Berhasil', 'status' => true, 'data' => $arrObject, ];
 				return \yii\helpers\Json::encode($result);

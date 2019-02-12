@@ -14,7 +14,7 @@ return [
     'controllerNamespace' => 'api\controllers',
     'components' => [
         'request' => [
-           'csrfParam' => '_csrf-api',
+            'csrfParam' => '_csrf-api',
 			'class' => 'common\components\Request',
 			'web'=> '/api/web'
         ],

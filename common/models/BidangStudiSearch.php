@@ -47,6 +47,7 @@ class BidangStudiSearch extends BidangStudi
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+			'sort'=> ['defaultOrder' => ['Bidang' => SORT_ASC,]]
         ]);
 
         $this->load($params);

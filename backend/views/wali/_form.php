@@ -6,6 +6,7 @@ use yii\helpers\ArrayHelper;
 use common\models\Pekerjaan;
 use common\models\Provinsi;
 use common\models\Kabupaten;
+use common\models\FamilyStatus;
 use yii\helpers\Url;
 ?>
 
@@ -49,19 +50,19 @@ use yii\helpers\Url;
 						</div>
 						<div class='col-sm-9'>
 							<div class='row'>
-								<div class='col-sm-7'>
+								<div class='col-sm-12'>
 									<?= $form->field($model, 'Kota')->textInput(['maxlength' => true])->label(false) ?>
 								</div>
-								<div class='col-sm-2 label-div'>
-									Pos
+								</div>
+						</div>
+						<div class='col-sm-3 label-div'>
+								kode Pos
 								</div>
 								<div class='col-sm-3'>
 									<?= $form->field($model, 'Pos')->textInput(['maxlength' => true])->label(false) ?>
 								</div>
 							</div>
 							
-						</div>
-					</div>
 					<div class='row'>
 						<div class='col-sm-3 label-div'>
 							Provinsi
@@ -108,6 +109,14 @@ use yii\helpers\Url;
 							
 						</div>
 					</div>
+					<div class='row rowlist'>
+			<div class='col-sm-3 label-div'>
+				Status Wali
+			</div>
+			<div class='col-sm-9'>
+				<?= Html::dropDownList('IdFam',null,ArrayHelper::map(FamilyStatus::find()->all(), 'Id', 'Status'),['prompt'=>'- Pilih Status -','class' => 'form-control','id' => 'idstat']);?>
+			</div>
+		</div>
 					<div class='row'>
 						<div class='col-sm-3 label-div'>
 							Keterangan

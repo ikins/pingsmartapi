@@ -65,7 +65,7 @@ class PegawaiController extends Controller
 		$user =new User();
 		$member =new Member;
 
-         if ($model->load(Yii::$app->request->post()) 
+        if ($model->load(Yii::$app->request->post()) 
 			&& $data->load(Yii::$app->request->post())
 		    && $user->load(Yii::$app->request->post())
 			&& Model::validateMultiple([$model,$data,$user])) {
@@ -76,7 +76,7 @@ class PegawaiController extends Controller
 				$member->Avatar=$image->name;
 				
 				$path = Yii::$app->params['imagePath'] .'/user/'.$member->Avatar;
-				$path2 = Yii::$app->params['imagePath'] .'/guru/'.$member->Avatar;
+				$path2 = Yii::$app->params['imagePath'] .'/siswa/'.$member->Avatar;
 				$image->saveAs($path);
 				$image->saveAs($path2);
 			}

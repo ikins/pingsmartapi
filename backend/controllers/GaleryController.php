@@ -41,7 +41,7 @@ class GaleryController extends Controller
             'totalCount' => $query->count(),
         ]);
 		
-		$pics = $query->orderBy(['Id' => SORT_DESC])
+		$pics = $query->orderBy(['Judul' => SORT_ASC])
 			->offset($pagination->offset)
 			->limit($pagination->limit)
 			->all();
@@ -199,7 +199,7 @@ class GaleryController extends Controller
             'totalCount' => $query->count(),
         ]);
 		
-		$pics = $query->orderBy(['Id' => SORT_DESC])
+		$pics = $query->orderBy(['Judul' => SORT_ASC])
 			->offset($pagination->offset)
 			->limit($pagination->limit)
 			->all();
