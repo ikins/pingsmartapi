@@ -15,6 +15,7 @@ use common\models\User;
 use common\models\Wali;
 use common\models\SiswaWali;
 use common\models\Galery;
+use common\models\Kelas;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -74,61 +75,76 @@ class SiswaController extends Controller
 		$data = new SiswaBiodata();
 		$member=new Member();
 		$user = new user();
-		
+
 				
 		 if ($model->load(Yii::$app->request->post()) 
 			&& $data->load(Yii::$app->request->post())
 		    && $user->load(Yii::$app->request->post())
 			&& Model::validateMultiple([$model,$data,$user])) {
+		 	//
+			$kelas=Kelas::find()->where(['Kode' => $model->KodeKelas])->one();
+			$jumlahSiswa=Siswa::find()->where(['KodeKelas' => $model->KodeKelas])->count();
+
+			if($kelas->Jumlah != $jumlahSiswa){
+
+				$image=UploadedFile::getInstance($data,'Foto');
+				if (!$image == null) {
+					$data->Foto=$image->name;
+					$member->Avatar=$image->name;
+					
+					$path = Yii::$app->params['imagePath'] .'/user/'.$member->Avatar;
+					$path2 = Yii::$app->params['imagePath'] .'/siswa/'.$member->Avatar;
+					$image->saveAs($path);
+					$image->saveAs($path2);
+				}
+				else{
+					$data->Foto='dummy.png';
+					$member->Avatar='dummy.png';
+				}
 				
-			$image=UploadedFile::getInstance($data,'Foto');
-			if (!$image == null) {
-				$data->Foto=$image->name;
-				$member->Avatar=$image->name;
+				/** generate kode member ***/
+				$member->Nama=$data->Nama;
+				$member->GenKode();
+				$member->IdStat=2;//registered
+				$member->IdLev=6;//siswa
 				
-				$path = Yii::$app->params['imagePath'] .'/user/'.$member->Avatar;
-				$path2 = Yii::$app->params['imagePath'] .'/siswa/'.$member->Avatar;
-				$image->saveAs($path);
-				$image->saveAs($path2);
-			}
-			else{
-				$data->Foto='dummy.png';
-				$member->Avatar='dummy.png';
-			}
-			
-			/** generate kode member ***/
-			$member->Nama=$data->Nama;
-			$member->GenKode();
-			$member->IdStat=2;//registered
-			$member->IdLev=6;//siswa
-			
-			$user->MemberId=$member->MemberId;
-			$user->setPassword($user->Password);
-            $user->generateAuthKey();
-			$user->generatePasswordResetToken();
-			$user->Created=date('Y-m-d');
-			$user->IsVerified=1;
-			$user->Enabled=1;
-			$user->IdPriv=12;//siswa
-			
-			$model->MemberId=$member->MemberId;
-			$data->NIS=$model->NIS;
-			$model->IsActive=1;
-			if($data->IdAgm == null){$data->IdAgm=1;}
-			
-			if($member->save() && $user->save(false) ){
-				$model->save();
-				$data->save();
-				return $this->redirect(['index']);
-				//return $this->redirect(['view', 'id' => $model->Id]);
-			}	
-			else {
+				$user->MemberId=$member->MemberId;
+				$user->setPassword($user->Password);
+	            $user->generateAuthKey();
+				$user->generatePasswordResetToken();
+				$user->Created=date('Y-m-d');
+				$user->IsVerified=1;
+				$user->Enabled=1;
+				$user->IdPriv=12;//siswa
+				
+				$model->MemberId=$member->MemberId;
+				$data->NIS=$model->NIS;
+				$model->IsActive=1;
+				if($data->IdAgm == null){$data->IdAgm=1;}
+				
+				if($member->save() && $user->save(false) ){
+					$model->save();
+					$data->save();
+					return $this->redirect(['index']);
+					//return $this->redirect(['view', 'id' => $model->Id]);
+				}	
+				else {
+					return $this->render('create', [
+						'model' => $model,
+						'data' => $data,
+						'member' => $member,
+						'user' => $user,
+					]);
+				}
+			}else{
+				
+				Yii::$app->session->setFlash('flashMsg');
 				return $this->render('create', [
-					'model' => $model,
-					'data' => $data,
-					'member' => $member,
-					'user' => $user,
-				]);
+						'model' => $model,
+						'data' => $data,
+						'member' => $member,
+						'user' => $user,
+					]);
 			}
 				
 		}

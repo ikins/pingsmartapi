@@ -4,6 +4,7 @@ use common\models\Jadwal;
 use common\models\JadwalSearch;
 use kartik\grid\GridView;
 $jd=new Jadwal;
+date_default_timezone_set("Asia/Jakarta");
 ?>
 <div class='guru-dashboard'>
 	
@@ -17,14 +18,14 @@ $jd=new Jadwal;
 		
 		<div class='col-sm-5'>
 			<div class='box'>
-				<h1 class='stat-heading'><?= $jd->getNowSchedule(Yii::$app->user->identity->member->pegawai->IdPeg);?></h1>
+				<h1 class='stat-heading'><?= $jd->getNowSchedule(Yii::$app->user->identity->member->pegawai->IdPeg, date('H:i:s')); ?></h1>
 				<div class='stat-description'>Kelas Saat Ini</div>
 			</div>
 		</div>
 		
 		<div class='col-sm-5'>
 			<div class='box'>
-				<h1 class='stat-heading'><?= $jd->getNextSchedule(Yii::$app->user->identity->member->pegawai->IdPeg);?></h1>
+				<h1 class='stat-heading'><?= $jd->getNextSchedule(Yii::$app->user->identity->member->pegawai->IdPeg, date('H:i:s'));?></h1>
 				<div class='stat-description'>Kelas Berikutnya</div>
 			</div>
 		</div>
@@ -33,7 +34,7 @@ $jd=new Jadwal;
 		<div class='col-sm-12'>
 			<h5 class='module-header'>Jadwal Mengajar Hari ini<span class='pull-right'><?= Yii::$app->algo->showToday();?></h5>
 			<?php
-			$searchModel = new JadwalSearch(['IdGuru' => Yii::$app->user->identity->member->pegawai->IdPeg,'IdHari' => date('N') + 1]);
+			$searchModel = new JadwalSearch(['IdGuru' => Yii::$app->user->identity->member->pegawai->IdPeg, 'IdHari' => date('N') + 1]);
 			$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 						
 			?>

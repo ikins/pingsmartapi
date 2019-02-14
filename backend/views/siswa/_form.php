@@ -22,10 +22,15 @@ use kartik\file\FileInput;
 			<h1><?= $this->title;?></h1>
 		</div>
 		<div class='box-body'>
+					<?php if (Yii::$app->session->hasFlash('flashMsg')){ ?>
+					    <div class="alert alert-danger">
+					        <!-- flash message -->
+					         Kelas Penuh
+					    </div>
+					<?php } ?>
 			<div class='row'>
 				
 				<div class='col-sm-7'>
-					
 					<div class='row'>
 						<div class='col-sm-3 label-div'>
 							Nomor Induk

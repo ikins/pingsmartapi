@@ -70,13 +70,23 @@ use common\models\KelasLevel;
 								<div class='col-sm-3 label-div'>
 									Nama Kelas
 								</div>
-								<div class='col-sm-6'>
+								<div class='col-sm-3'>
 									<?= $form->field($model, 'Kelas')->textInput(['maxlength' => true])->label(false) ?>
 								</div>
 							</div>
-							
-							
-							
+						</div>
+					</div>
+
+					<div class='row'>
+						<div class='col-sm-3 label-div'>
+							Jumlah Siswa
+						</div>
+						<div class='col-sm-9'>
+							<div class='row'>
+								<div class='col-sm-3'>
+									<?= $form->field($model, 'Jumlah')->textInput(['maxlength' => true])->label(false) ?>
+								</div>
+							</div>
 						</div>
 					</div>
 					

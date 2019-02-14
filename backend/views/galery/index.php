@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				<div class='col-sm-2'>
 					<h4><i class="fa fa-folder-open"></i> Album Terbaru</h4>
 						<?php
-							$albums=GaleryAlbum::Find()->all();
+							$albums=GaleryAlbum::Find()->orderBy(['Album' => SORT_ASC])->all();
 						    foreach ($albums as $a): ?>
 						
 								<?= Html::a('<h5 class="nobottom">'.$a->Album.'</h5>',['/galery/album','id' =>$a->Id],[])?>

@@ -101,8 +101,13 @@ class Jadwal extends \yii\db\ActiveRecord
         return $this->hasOne(Pelajaran::className(), ['Kode' => 'KodePel']);
     }
 	
-	public function getNowSchedule($idguru){
-		$data=Jadwal::find()->where(['BETWEEN','NOW()','JamMulai','JamAkhir'])->andFilterWhere(['IdGuru' => $idguru])->one();
+	public function getNowSchedule($idguru, $timenow){
+		$data=Jadwal::find()
+        ->where(['<=', 'JamMulai', $timenow])
+        ->andWhere(['>=', 'JamAkhir', $timenow])
+        ->andWhere(['IdHari' => date('N') + 1])
+        ->andFilterWhere(['IdGuru' => $idguru])->one();
+
 		if ($data == null){
 			return '-';
 		}
@@ -112,18 +117,58 @@ class Jadwal extends \yii\db\ActiveRecord
 		
 	}
 	
-	public function getNextSchedule($idguru){
-		$data=Jadwal::find()->where(['BETWEEN','NOW()','JamMulai','JamAkhir'])->andFilterWhere(['IdGuru' => $idguru])->one();
-		if ($data == null){
+	public function getNextSchedule($idguru, $timenow){
+		$data=Jadwal::find()
+        ->andWhere(['>=', 'JamAkhir', $timenow])
+        ->andWhere(['IdHari' => date('N') + 1])
+        ->andFilterWhere(['IdGuru' => $idguru])->one();
+
+        $jamTerkahir = $data->JamAkhir;
+
+        $dataNext=Jadwal::find()
+        ->andWhere(['>', 'JamAkhir', $jamTerkahir])
+        ->andWhere(['IdHari' => date('N') + 1])
+        ->andFilterWhere(['IdGuru' => $idguru])->one();
+
+		if ($dataNext == null){
 			return '-';
 		}
 		else{
-			return $data->pelajaran->Pelajaran;
+			return $dataNext->pelajaran->Pelajaran;
 		}
 		
 	}
 	
 	public function getTeachingHour($idguru){
-		return static::find()->where(['IdGuru' => $idguru])->count();
+
+		$data=Jadwal::find()->where(['IdGuru' => $idguru, 'IdHari' => date('N') + 1])->all();
+        if ($data == null){
+            return '-';
+        }
+        else{
+            
+            $counthours = 0;
+
+            foreach ($data as $row) {
+
+                $first = date('Y-m-d').' '.$row->JamMulai;
+                $start = strtotime($first);
+
+                $second = date('Y-m-d').' '.$row->JamAkhir;
+                $end = strtotime($second);
+
+                $interval = $end - $start;
+
+                $hours = floor($interval / 1800)/2;
+
+                $counthours += $hours;
+
+            }
+
+            return $counthours;
+
+
+        }
+
 	}
 }

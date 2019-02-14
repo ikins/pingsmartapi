@@ -28,7 +28,7 @@ use kartik\widgets\TimePicker;
 								Kelas
 							</div>
 							<div class='col-sm-9'>
-								 <?= $form->field($model, 'KodeKelas')->dropDownList(ArrayHelper::map(Kelas::find()->all(), 'Kode', 'Kelas'),[
+								 <?= $form->field($model, 'KodeKelas')->dropDownList(ArrayHelper::map(Kelas::find()->orderBy(['Kelas' => SORT_ASC])->all(), 'Kode', 'Kelas'),[
 										'prompt'=>'- Pilih Kelas -'])->label(false)?>
 							</div>
 						</div>
@@ -38,7 +38,7 @@ use kartik\widgets\TimePicker;
 								Hari
 							</div>
 							<div class='col-sm-9'>
-								 <?= $form->field($model, 'IdHari')->dropDownList(ArrayHelper::map(Hari::find()->all(), 'Id', 'Hari'),[
+								 <?= $form->field($model, 'IdHari')->dropDownList(ArrayHelper::map(Hari::find()->orderBy(['Id' => SORT_ASC])->all(), 'Id', 'Hari'),[
 										'prompt'=>'- Pilih Hari -'])->label(false)?>
 							</div>
 						</div>
@@ -93,7 +93,7 @@ use kartik\widgets\TimePicker;
 								Kode Pelajaran
 							</div>
 							<div class='col-sm-9'>
-								 <?= $form->field($model, 'KodePel')->dropDownList(ArrayHelper::map(Pelajaran::find()->all(), 'Kode', 'Pelajaran'),[
+								 <?= $form->field($model, 'KodePel')->dropDownList(ArrayHelper::map(Pelajaran::find()->orderBy(['Pelajaran' => SORT_ASC])->all(), 'Kode', 'Pelajaran'),[
 										'prompt'=>'- Pilih Pelajaran -'])->label(false)?>
 							</div>
 						</div>
@@ -109,7 +109,7 @@ use kartik\widgets\TimePicker;
 								Pengajar
 							</div>
 							<div class='col-sm-9'>
-								 <?= $form->field($model, 'IdGuru')->dropDownList(ArrayHelper::map(Pegawai::find()->joinWith('biodata')->where(['IdJab' => 3])->all(), 'IdPeg', 'biodata.Nama'),[
+								 <?= $form->field($model, 'IdGuru')->dropDownList(ArrayHelper::map(Pegawai::find()->joinWith('biodata')->where(['IdJab' => 3])->orderBy(['pegawai_biodata.Nama' => SORT_ASC])->all(), 'IdPeg', 'biodata.Nama'),[
 										'prompt'=>'- Pilih Guru -'])->label(false)?>
 							</div>
 						</div>

@@ -48,7 +48,7 @@ class JadwalSearch extends Jadwal
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-			'sort' => ['defaultOrder' => ['KodeKelas' => SORT_ASC,'IdHari' => SORT_ASC]]
+			'sort' => ['defaultOrder' => ['JamMulai' => SORT_ASC]]
         ]);
 
         $this->load($params);
