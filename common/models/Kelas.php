@@ -117,7 +117,7 @@ class Kelas extends \yii\db\ActiveRecord
     }
 	
 	public static function getOptions(){
-		$data=  static::find()->orderBy(['Id'=>SORT_ASC])->all();
+		$data=  static::find()->orderBy(['Kode'=>SORT_ASC])->all();
 		$value=(count($data)==0)? [''=>'']: \yii\helpers\ArrayHelper::map($data, 'Kode','Kelas'); //id = your ID model, name = your caption
 		return $value;
 	}

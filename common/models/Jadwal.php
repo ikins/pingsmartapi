@@ -123,7 +123,7 @@ class Jadwal extends \yii\db\ActiveRecord
         ->andWhere(['IdHari' => date('N') + 1])
         ->andFilterWhere(['IdGuru' => $idguru])->one();
 
-        $jamTerkahir = $data->JamAkhir;
+        $jamTerkahir = $data['JamAkhir'];
 
         $dataNext=Jadwal::find()
         ->andWhere(['>', 'JamAkhir', $jamTerkahir])

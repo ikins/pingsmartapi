@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 use common\models\Jadwal;
 use common\models\JadwalSearch;
+use common\models\PengumumanSearch;
 use kartik\grid\GridView;
 $jd=new Jadwal;
 date_default_timezone_set("Asia/Jakarta");
@@ -35,8 +36,7 @@ date_default_timezone_set("Asia/Jakarta");
 			<h5 class='module-header'>Jadwal Mengajar Hari ini<span class='pull-right'><?= Yii::$app->algo->showToday();?></h5>
 			<?php
 			$searchModel = new JadwalSearch(['IdGuru' => Yii::$app->user->identity->member->pegawai->IdPeg, 'IdHari' => date('N') + 1]);
-			$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-						
+			$dataProvider = $searchModel->search(Yii::$app->request->queryParams);		
 			?>
 			
 			<?= GridView::widget([
@@ -80,7 +80,42 @@ date_default_timezone_set("Asia/Jakarta");
 		</div>
 		
 		<div class='col-sm-12'>
-			<h5 class='module-header'>Pengumuman</h5><hr/>
+			<h5 class='module-header'>Pengumuman</h5>
+			<?php
+			$searchModel = new PengumumanSearch(['IdPeg' => Yii::$app->user->identity->member->pegawai->IdPeg, 'Tanggal' => date('Y-m-d')]);
+			$dataProvider = $searchModel->search(Yii::$app->request->queryParams);		
+			?>
+
+			<?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                //'filterModel' => $searchModel,
+                'hover' => true,
+                'bordered' => false,
+                'columns' => [
+                    
+					[
+                        'label' => 'Tanggal',
+                        'attribute' => '',
+                        'format' => 'raw',
+                        'vAlign' => 'middle',
+                        'value' => function ($model, $key, $index) {
+                            return(date('d M Y', strtotime($model->Tanggal)));
+                        }, 
+                    ],
+					
+                    [
+                        'label' => 'Judul',
+                        'attribute' => '',
+                        'format' => 'raw',
+                        'vAlign' => 'middle',
+                        'value' => function ($model, $key, $index) {
+                            return Html::a($model->Judul, ['/guru/pengumuman-view', 'id' => $model->Id]);
+                        }, 
+                    ],
+                
+                ],
+            ]); ?>
+
 		</div>
 		
 	</div>

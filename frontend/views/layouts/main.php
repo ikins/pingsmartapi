@@ -32,7 +32,7 @@ AppAsset::register($this);
 	$isHome = (($controller->id === $default_controller) && ($controller->action->id === $controller->defaultAction)) ? true : false;
 	
     NavBar::begin([
-        'brandLabel' => 'PINGSMART',
+        'brandLabel' => 'smartSchool',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-default navbar-fixed-top',
@@ -85,9 +85,9 @@ AppAsset::register($this);
 <?= $this->render('bottom');?>
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; pingSmart <?= date('Y') ?></p>
+        <p class="pull-left">&copy; smartSchool <?= date('Y') ?></p>
 
-        <p class="pull-right">powered by ALGO</p>
+        <p class="pull-right">powered by smartSchool</p>
     </div>
 </footer>
 

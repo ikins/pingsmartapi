@@ -1,15 +1,15 @@
 <?php
 use yii\helpers\Html;
-$this->title = 'pingSmart';
+$this->title = 'smartSchool';
 
 ?>
-<div class="site-index">
+<div class="site-index padding-50">
 	<section class='intro bg-green white clearfix'>
 		<div class='container'>
 			<div class='row'>
 				<div class='col-sm-4'>
 					
-					<span class='section-heading'>Selamat Datang di pingSmart</span>
+					<span class='section-heading'>Selamat Datang di smartSchool</span>
 					<h1 class='section-bold'>Platform Sekolah Pintar</h1>
 					<p>Untuk system sekolah masa depan yang lebih baik:</p>
 					<p>
@@ -23,7 +23,7 @@ $this->title = 'pingSmart';
 					
 				</div>
 				<div class='col-sm-8'>
-					<?= Html::img(Yii::$app->request->baseUrl.'/frontend/images/resources/pingsmart.png',['class' => 'img img-responsive']);?>
+					<?= Html::img(Yii::$app->request->baseUrl.'/frontend/images/resources/smartschool.png',['class' => 'img img-responsive']);?>
 				</div>
 			</div>
 		</div>

@@ -2,7 +2,7 @@
 <div class='col-sm-3 xs-center'>
 	<h4>About</h4>
 	<ul class='list-link'>
-		<li><?= Html::a('Tentang Pingsmart',['/about/index']);?></li>
+		<li><?= Html::a('Tentang smartSchool',['/about/index']);?></li>
 		<li><?= Html::a('Fitur',['/about/fitur']);?></li>
 		<li><?= Html::a('Jaringan',['/about/shool']);?></li>
 	</ul>
